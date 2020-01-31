@@ -8,9 +8,8 @@ class ProductsController < ApplicationController
     @material_arr = @products.map{|p| p.material }.uniq.sort
 
     respond_to do |format|
-      format.html
-      # format.csv { send_data @products.to_csv }
-      format.xls #{ send_data @products.to_csv(col_sep: "\t") }
+      format.html      
+      format.xls { send_data @products.to_csv }
     end
   end
   
@@ -21,7 +20,6 @@ class ProductsController < ApplicationController
     conditions = ""
     conditions << "price LIKE '#{params[:price]}'" unless params[:price].blank?
     conditions << " AND material LIKE '#{params[:material]}'" unless params[:material].blank?
-    # binding.pry
     conditions.sub!(/^AND/, '')
     if conditions.start_with?(' AND')
       conditions = conditions.sub(' AND', '')
