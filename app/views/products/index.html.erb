@@ -1,14 +1,50 @@
-<h3>Product List</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-    </tr>
-  </thead>
+<div class="container">
+  <div class="row">
+    <h3>Product List</h3>    
+  </div>
+  <div class="row">
+    <div class="col-sm-3">
+      <%= select_tag :price, options_for_select(@price_arr), {prompt: "Filter by Price",class: "form-control"}  %>
+    </div>
 
-  <tbody>
-    <tr>
-      
-    </tr>
-  </tbody>
-</table>
+    <div class="col-sm-3">
+      <%= select_tag :material, options_for_select(@material_arr), {prompt: "Filter by Material",class: "form-control"}  %>
+    </div>
+    
+    <div class= "col-sm-3">
+      <%= button_tag "Filter", id: "filter_product", class: 'btn btn-primary' %>
+    </div>
+
+    <div class="col-sm-3">
+      <%= link_to "Download Excel", products_path(format: "xls"), class: "btn btn-info" %>
+    </div>
+  </div>
+  <br/>
+  <div class="row" id="product_list">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Material</th>
+          <th>Category</th>
+          <th>Color</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @products.each do |p| %>
+          <tr>
+            <td><%= link_to p.id, p %></td>
+            <td><%= p.name %></td>
+            <td><%= p.price %></td>
+            <td><%= p.material %></td>
+            <td><%= p.category %></td>
+            <td><%= p.color %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
